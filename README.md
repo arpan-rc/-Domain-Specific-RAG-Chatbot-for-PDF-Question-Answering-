@@ -2,6 +2,9 @@
 
 A Retrieval-Augmented Generation (RAG) chatbot that answers questions using content retrieved from uploaded PDF documents. It provides a Streamlit chat interface and a FastAPI REST API.
 
+<img width="4064" height="1464" alt="image" src="https://github.com/user-attachments/assets/4b283e22-3017-4ec8-89ca-4301e9eb6fcc" />
+
+
 ## Features
 
 - Upload and process PDF documents.
