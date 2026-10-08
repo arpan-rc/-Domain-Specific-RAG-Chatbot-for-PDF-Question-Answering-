@@ -1,0 +1,77 @@
+# RAG Pipeline Chatbot — Commands
+# Run these commands from the project root (the folder containing requirements.txt).
+# Windows PowerShell examples are provided.
+
+# OPTION A: Create and use a standard Python virtual environment
+# Run the create command only once per project.
+
+py -3.11 -m venv .venv
+
+# Activate the environment in PowerShell.
+.\.venv\Scripts\Activate.ps1
+
+# If PowerShell blocks activation, use Command Prompt instead:
+# .\.venv\Scripts\activate.bat
+
+# Upgrade pip.
+python -m pip install --upgrade pip
+
+# Install project dependencies.
+python -m pip install -r requirements.txt
+
+# Create a .env file in the project root and add your Groq credentials:
+# GROQ_API_KEY=your_groq_api_key_here
+# GROQ_MODEL=openai/gpt-oss-20b
+# Do not paste your real API key into this commands file or commit it to Git.
+
+# Run the Streamlit chatbot.
+python -m streamlit run app.py
+
+# Streamlit usually prints a local URL such as http://localhost:8501.
+# Open the URL shown in your terminal.
+
+# OPTION B: Use Conda instead of a standard virtual environment
+# Run the create command only once.
+
+conda create -n ragclass python=3.11 -y
+
+# Activate this environment whenever you open a new terminal.
+conda activate ragclass
+
+# Confirm the Python version.
+python --version
+
+# Upgrade pip and install dependencies.
+python -m pip install --upgrade pip
+python -m pip install -r requirements.txt
+
+# Configure .env as described above, then run Streamlit.
+python -m streamlit run app.py
+
+# OPTIONAL: Run the FastAPI REST API instead of (or alongside) Streamlit.
+# Activate the same environment in a separate terminal first.
+
+python -m uvicorn fastapi_app:app --reload
+
+# API root: http://127.0.0.1:8000
+# Swagger UI: http://127.0.0.1:8000/docs
+# ReDoc: http://127.0.0.1:8000/redoc
+
+# API examples (run in another terminal).
+# Check whether the API is running:
+curl http://127.0.0.1:8000/
+
+# Upload a PDF (replace the path with your PDF file path):
+curl -X POST "http://127.0.0.1:8000/upload" -F "file=@path/to/your-document.pdf"
+
+# Ask a question against the saved vector index:
+curl -X POST "http://127.0.0.1:8000/query" ^
+  -H "Content-Type: application/json" ^
+  -d "{\"question\":\"What are the main findings?\",\"top_chunks\":4}"
+
+# Notes:
+# 1. Upload/process a PDF before asking questions.
+# 2. The Streamlit interface accepts PDFs up to 100 MB each.
+# 3. The OCR checkbox is present in the UI but is not currently wired to the document loader.
+# 4. The API upload route currently has no explicit file-size limit or authentication.
+# 5. Keep .env, uploaded documents, and generated vector indexes private.
