@@ -213,6 +213,4 @@ You can also send these requests from Swagger UI at `/docs`.
 - The saved FAISS index is local to the running project; back it up if you need to preserve it.
 - The RAG prompt asks the model to use supplied context only, but generated answers can still be incorrect. Check the original source for important claims.
 
-## License
 
-Add a license file and update this section if you plan to distribute the project.
