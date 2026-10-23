@@ -2,9 +2,6 @@
 
 A Retrieval-Augmented Generation (RAG) chatbot that answers questions using content retrieved from uploaded PDF documents. It provides a Streamlit chat interface and a FastAPI REST API.
 
-<img width="4064" height="1464" alt="image" src="https://github.com/user-attachments/assets/4b283e22-3017-4ec8-89ca-4301e9eb6fcc" />
-
-
 ## Features
 
 - Upload and process PDF documents.
@@ -213,4 +210,6 @@ You can also send these requests from Swagger UI at `/docs`.
 - The saved FAISS index is local to the running project; back it up if you need to preserve it.
 - The RAG prompt asks the model to use supplied context only, but generated answers can still be incorrect. Check the original source for important claims.
 
+## License
 
+Add a license file and update this section if you plan to distribute the project.
