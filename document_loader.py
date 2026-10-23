@@ -1,72 +1,62 @@
 import os
-import fitz #PyMuPDF
+from pathlib import Path
+
 from pypdf import PdfReader
 from langchain_core.documents import Document
 
-def load_document(file_path_or_stream,filename=None,use_ocr_fallback=False):
-    """
-    Loads text from PDF or TXT sources (file paths or Streamlit uploaded file objects)
-    and returns a list of LangChain Document objects with page/source metadata.
-    """
+
+def load_document(file_path_or_stream, filename=None, use_ocr_fallback=False):
+    """Extract PDF/TXT content and retain source plus one-based page metadata."""
+    is_path = isinstance(file_path_or_stream, (str, os.PathLike))
+    if is_path:
+        path = Path(file_path_or_stream)
+        source_name = Path(filename).name if filename else path.name
+    else:
+        source_name = Path(filename or getattr(file_path_or_stream, "name", "uploaded_file")).name
+
+    file_extension = Path(source_name).suffix.lower()
     documents = []
 
-    # 1. Determine filename and extension
-    if isinstance(file_path_or_stream,str):
-        source_name = filename or os.path.basename(file_path_or_stream)
-        file_extension = source_name.lower().split(".")[-1]
-    else:
-        source_name = filename or getattr(file_path_or_stream, "name", "uploaded_file")
-        file_extension = source_name.lower().split(".")[-1]
-
-    #2. Process TXT files
-    if file_extension == "txt":
-        if isinstance(file_path_or_stream,str):
-            with open(file_path_or_stream,"r",encoding="utf-8",errors="ignore") as f:
-                text = f.read()
+    if file_extension == ".txt":
+        if is_path:
+            text = Path(file_path_or_stream).read_text(encoding="utf-8", errors="ignore")
         else:
-            text = file_path_or_stream.getvalue().decode("utf-8",errors="ignore")
+            raw = file_path_or_stream.getvalue()
+            text = raw.decode("utf-8", errors="ignore") if isinstance(raw, bytes) else str(raw)
+        if text.strip():
+            documents.append(Document(page_content=text, metadata={"source": source_name, "page": 1}))
+        return documents
+
+    if file_extension != ".pdf":
+        raise ValueError("Only PDF and TXT documents are supported.")
+
+    reader_source = str(file_path_or_stream) if isinstance(file_path_or_stream, os.PathLike) else file_path_or_stream
+    reader = PdfReader(reader_source)
+
+    for page_num, page in enumerate(reader.pages, start=1):
+        text = page.extract_text() or ""
+
+        # OCR is optional and only supported when a local file path is available.
+        if not text.strip() and use_ocr_fallback and is_path:
+            try:
+                import pytesseract
+                from pdf2image import convert_from_path
+
+                images = convert_from_path(
+                    str(file_path_or_stream), first_page=page_num, last_page=page_num
+                )
+                if images:
+                    text = pytesseract.image_to_string(images[0]) or ""
+            except Exception as exc:
+                # Continue with normal extraction if optional OCR tools are unavailable.
+                print(f"OCR failed on page {page_num} of {source_name}: {exc}")
 
         if text.strip():
             documents.append(
                 Document(
                     page_content=text,
-                    metadata={
-                        "source":source_name,
-                        "page":1
-                    }
+                    metadata={"source": source_name, "page": page_num},
                 )
             )
-
-    #3. Process PDF files
-    elif file_extension == "pdf":
-        reader = PdfReader(file_path_or_stream)
-
-        for page_num, page in enumerate(reader.pages,start=1):
-            text = page.extract_text() or ""
-
-            #OCR Fallback for scanned/image pages
-            if not text.strip() and use_ocr_fallback and isinstance(file_path_or_stream,str):
-                try:
-                    import pytesseract
-                    from pdf2image import convert_from_path
-
-                    images = convert_from_path(
-                        file_path_or_stream,first_page=page_num,last_page=page_num
-                    )
-                    if images:
-                        text = pytesseract.image_to_string(images[0])
-                except Exception:
-                    text = ""
-
-            if text.strip():
-                documents.append(
-                    Document(
-                        page_content=text,
-                        metadata={
-                        "source":source_name,
-                       "page":1
-                        }
-                    )
-                )
 
     return documents

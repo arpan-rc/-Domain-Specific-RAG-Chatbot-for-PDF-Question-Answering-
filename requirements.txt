@@ -1,6 +1,7 @@
 streamlit
 fastapi
 uvicorn
+python-multipart
 pypdf
 pymupdf
 pytesseract
