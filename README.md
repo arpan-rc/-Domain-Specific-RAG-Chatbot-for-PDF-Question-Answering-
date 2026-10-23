@@ -206,10 +206,9 @@ You can also send requests through Swagger UI at `/docs`.
 
 ## Current limitations
 
-- The index is local to the running project and is replaced when a new batch is processed. Back it up if you need to preserve it.
+- The index is local to the running project and is replaced when a new batch is processed. 8
 - The API currently has no authentication, conversation-session memory, or per-user index isolation.
 - OCR depends on external system packages and may fail if they are unavailable.
-- Prompt instructions reduce unsupported answers but cannot guarantee that every generated answer is correct. Verify important claims against the source document.
 
 ## License
 
