@@ -1,0 +1,3 @@
+[server]
+# Match the application's per-file validation limit (100 MiB).
+maxUploadSize = 100
