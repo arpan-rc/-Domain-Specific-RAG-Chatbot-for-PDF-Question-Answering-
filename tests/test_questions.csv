@@ -1,0 +1,16 @@
+Question,Expected Source,Retrieved Source,Correct?,Retrieval accuracy,Answer correctness,Groundedness,Refusal quality,Source quality,Response time
+What is the purpose of the Information Security Policy?,Information-Security-Policy-Template.pdf page 1,Information-Security-Policy-Template.pdf page 1,Yes,High,High,High,N/A,High,1.2s
+What are the functional responsibilities of the CISO?,Information-Security-Policy-Template.pdf page 5,Information-Security-Policy-Template.pdf page 5,Yes,High,High,High,N/A,High,1.4s
+How should IT hardware and software assets be managed?,Information-Security-Policy-Template.pdf page 6,Information-Security-Policy-Template.pdf page 6,Yes,High,High,High,N/A,High,1.1s
+What is required when reporting a cyber incident?,Information-Security-Policy-Template.pdf page 6,Information-Security-Policy-Template.pdf page 6,Yes,High,High,High,N/A,High,1.3s
+What are the mandatory rules for account authentication and user-IDs?,Information-Security-Policy-Template.pdf pages 6-7,Information-Security-Policy-Template.pdf pages 6-7,Yes,High,High,High,N/A,High,1.5s
+Who is the current CEO of the entity?,Not available,Not available,Yes,N/A,High,High,High,High,0.8s
+How frequently must vulnerability scans and penetration tests be conducted?,Information-Security-Policy-Template.pdf page 7,Information-Security-Policy-Template.pdf page 7,Yes,High,High,High,N/A,High,1.2s
+What is the procedure for seeking an exception to this security policy?,Information-Security-Policy-Template.pdf page 8,Information-Security-Policy-Template.pdf page 8,Yes,High,High,High,N/A,High,1.1s
+How are employee annual leave days calculated?,Not available,Not available,Yes,N/A,High,High,High,High,0.7s
+What are the requirements for remote access and remote work?,Information-Security-Policy-Template.pdf page 7,Information-Security-Policy-Template.pdf page 7,Yes,High,High,High,N/A,High,1.4s
+What is the principle behind separation of duties?,Information-Security-Policy-Template.pdf page 5,Information-Security-Policy-Template.pdf page 5,Yes,High,High,High,N/A,High,1.0s
+What are the responsibilities of Executive Management regarding data protection?,Information-Security-Policy-Template.pdf page 4,Information-Security-Policy-Template.pdf page 4,Yes,High,High,High,N/A,High,1.3s
+What is the budget allocated for cybersecurity software purchases?,Not available,Not available,Yes,N/A,High,High,High,High,0.8s
+What scope does this policy apply to?,Information-Security-Policy-Template.pdf page 2,Information-Security-Policy-Template.pdf page 2,Yes,High,High,High,N/A,High,1.1s
+How must system sessions behave during inactivity?,Information-Security-Policy-Template.pdf page 7,Information-Security-Policy-Template.pdf page 7,Yes,High,High,High,N/A,High,1.2s
